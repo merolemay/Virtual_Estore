@@ -1,6 +1,7 @@
 package icesi.VirtualStore.config;
 
-import com.icesi.edu.users.security.SecurityConfiguration;
+
+import icesi.VirtualStore.security.SecurityConfiguration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
