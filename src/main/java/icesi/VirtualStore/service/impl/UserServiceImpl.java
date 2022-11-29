@@ -1,6 +1,7 @@
 package icesi.VirtualStore.service.impl;
 
 
+import icesi.VirtualStore.model.Permission;
 import icesi.VirtualStore.model.Role;
 import icesi.VirtualStore.model.User;
 import icesi.VirtualStore.repository.PermissionRepository;

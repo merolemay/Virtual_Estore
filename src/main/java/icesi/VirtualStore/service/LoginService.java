@@ -1,7 +1,8 @@
 package icesi.VirtualStore.service;
 
-import com.icesi.edu.users.dto.LoginDTO;
-import com.icesi.edu.users.dto.TokenDTO;
+
+import icesi.VirtualStore.dto.LoginDTO;
+import icesi.VirtualStore.dto.TokenDTO;
 
 public interface LoginService {
 

@@ -1,7 +1,7 @@
 package icesi.VirtualStore.controller;
 
-import com.icesi.edu.users.dto.LoginDTO;
-import com.icesi.edu.users.service.LoginService;
+import icesi.VirtualStore.dto.LoginDTO;
+import icesi.VirtualStore.service.LoginService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

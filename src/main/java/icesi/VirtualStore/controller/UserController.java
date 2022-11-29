@@ -1,10 +1,11 @@
 package icesi.VirtualStore.controller;
 
-import com.icesi.edu.users.api.UserAPI;
-import com.icesi.edu.users.dto.UserCreateDTO;
-import com.icesi.edu.users.dto.UserDTO;
-import com.icesi.edu.users.mapper.UserMapper;
-import com.icesi.edu.users.service.UserService;
+
+import icesi.VirtualStore.api.UserAPI;
+import icesi.VirtualStore.dto.UserCreateDTO;
+import icesi.VirtualStore.dto.UserDTO;
+import icesi.VirtualStore.mapper.UserMapper;
+import icesi.VirtualStore.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

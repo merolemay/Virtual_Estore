@@ -1,6 +1,7 @@
 package icesi.VirtualStore.dto;
 
-import com.icesi.edu.users.validation.CustomAnnotations.NameValidation;
+
+import icesi.VirtualStore.validation.CustomAnnotations;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class UserDTO {
     private String phoneNumber;
 
     @Size(min = 1, max = 120)
-    @NameValidation
+    @CustomAnnotations.NameValidation
     private String firstName;
 
     @NotNull

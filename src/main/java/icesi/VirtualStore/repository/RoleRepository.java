@@ -1,6 +1,6 @@
 package icesi.VirtualStore.repository;
 
-import com.icesi.edu.users.model.Role;
+import icesi.VirtualStore.model.Role;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
