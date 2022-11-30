@@ -29,7 +29,7 @@ public class UserController implements UserAPI {
 
     @Override
     public UserDTO createUser(@Valid UserCreateDTO userDTO) {
-        return userMapper.fromUser(userService.createUser(userMapper.fromDTO(userDTO), userDTO.getRoleId()));
+        return userMapper.fromUser(userService.createUser(userMapper.fromDTO(userDTO), userDTO.getRoleName()));
     }
 
     @Override

@@ -34,6 +34,6 @@ public class UserCreateDTO {
     @NotNull
     private String password;
 
-    private UUID roleId;
+    private String roleName;
 
 }

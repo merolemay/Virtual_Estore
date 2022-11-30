@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User userDTO, UUID roleId) {
-        Role role = roleRepository.findById(roleId).orElseThrow();
+    public User createUser(User userDTO, String roleName) {
+        Role role = roleRepository.findByName(roleName).orElseThrow();
         userDTO.setRole(role);
         List<Permission> permissions = StreamSupport.stream(permissionRepository.findAll().spliterator(),false).collect(Collectors.toList());
         return userRepository.save(userDTO);

@@ -7,6 +7,9 @@ public class EmailValidator implements ConstraintValidator<CustomAnnotations.Ema
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return false;
+
+        String emailValidationRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        return s.matches(emailValidationRegex);
     }
 }

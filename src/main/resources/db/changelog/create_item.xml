@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
+
+
+    <changeSet id="1669822093776-1" author="the_best_group">
+        <createTable tableName="item">
+            <column name="item_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_item"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE"/>
+            <column name="image" type="VARCHAR(255)"/>
+            <column name="available" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_item_id" type="UUID"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="order_item_id" baseTableName="item" constraintName="FK_ITEM_ON_ORDER_ITEM" referencedColumnNames="order_item_id" referencedTableName="order_item"/>
+    </changeSet>
+</databaseChangeLog>

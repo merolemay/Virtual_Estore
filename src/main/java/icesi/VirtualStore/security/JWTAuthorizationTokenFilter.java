@@ -29,6 +29,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -41,7 +42,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
-//@Component
+@Component
 @Order(1)
 public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
     
@@ -50,7 +51,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
 
    private static final String USER_ID_CLAIM_NAME = "userId";
 
-   private static final String[] excludedPaths = {"POST /users", "POST /login", "GET /index", "POST /index", "GET /css/bootstrap.min.css"};
+   private static final String[] excludedPaths = {"POST /users", "GET /users", "POST /login", "GET /login"};
 
 
     @Override
@@ -97,14 +98,12 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String methodPlusPath = request.getMethod() + " " + request.getRequestURI();
-        return Arrays.stream(excludedPaths).anyMatch(path -> path.equalsIgnoreCase(methodPlusPath));
+        Arrays.stream(excludedPaths).anyMatch(path -> path.equalsIgnoreCase(methodPlusPath));
+        return false;
     }
 
     private boolean containsToken(HttpServletRequest request) {
         String authenticationHeader = request.getHeader(AUTHORIZATION_HEADER);
         return authenticationHeader != null && authenticationHeader.startsWith(TOKEN_PREFIX);
     }
-
-
-
 }

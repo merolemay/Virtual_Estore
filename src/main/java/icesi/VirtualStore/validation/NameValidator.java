@@ -7,6 +7,8 @@ public class NameValidator implements ConstraintValidator<CustomAnnotations.Name
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return s.equals("Juan");
+        String nameRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+
+        return s.matches(nameRegex);
     }
 }

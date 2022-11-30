@@ -10,8 +10,9 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, UUID> {
+    Optional<User> findByEmail(String email);
 
-    @Query(value = "SELECT u FROM USER WHERE u.email = ?1 ", nativeQuery = true)
-    Optional<User> findUserByEmail(String email);
+    Optional<User> findByEmailOrPhoneNumber(String email, String phoneNumber);
+
 
 }

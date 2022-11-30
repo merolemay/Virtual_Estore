@@ -12,7 +12,7 @@ public interface UserService {
 
     public User getUser(@PathVariable UUID userId);
 
-    public User createUser(@RequestBody User userDTO, UUID roleId);
+    public User createUser(@RequestBody User userDTO, String roleName);
 
     public List<User> getUsers();
 }

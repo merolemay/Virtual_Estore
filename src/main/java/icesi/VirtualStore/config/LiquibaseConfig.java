@@ -23,7 +23,7 @@ public class LiquibaseConfig {
     private ResourceDatabasePopulator resourceDatabasePopulator() {
 
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resourceDatabasePopulator.addScript(new ClassPathResource("data.sql"));
+        resourceDatabasePopulator.addScript(new ClassPathResource("db/data.sql"));
 
         return resourceDatabasePopulator;
     }
