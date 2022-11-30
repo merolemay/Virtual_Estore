@@ -98,8 +98,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String methodPlusPath = request.getMethod() + " " + request.getRequestURI();
-        Arrays.stream(excludedPaths).anyMatch(path -> path.equalsIgnoreCase(methodPlusPath));
-        return false;
+        return Arrays.stream(excludedPaths).anyMatch(path -> path.equalsIgnoreCase(methodPlusPath));
     }
 
     private boolean containsToken(HttpServletRequest request) {

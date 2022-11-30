@@ -20,7 +20,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID id;
     private String email;
     private String phoneNumber;
