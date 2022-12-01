@@ -24,8 +24,7 @@ public class User {
     private UUID id;
     private String email;
     private String phoneNumber;
-    private String firstName;
-    private String lastName;
+    private String address;
     private String password;
 
     @ManyToOne
