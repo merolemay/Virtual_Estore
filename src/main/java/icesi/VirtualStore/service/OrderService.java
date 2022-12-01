@@ -5,10 +5,10 @@ import icesi.VirtualStore.model.Order;
 
 public interface OrderService {
 
-        public Order createOrder(String userId, String itemId, int quantity);
+    Order createOrder(String userId, String itemId, int quantity);
 
-        public Order updateOrder(String userId, String itemId, int quantity, OrderStatus status);
+    Order updateOrder(String userId, String itemId, int quantity, OrderStatus status);
 
-        public Order deleteOrder(String userId, String orderId);
+    Order deleteOrder(String userId, String orderId);
 
 }

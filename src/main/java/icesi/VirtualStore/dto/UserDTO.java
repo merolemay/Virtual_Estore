@@ -1,7 +1,6 @@
 package icesi.VirtualStore.dto;
 
 
-import icesi.VirtualStore.validation.CustomAnnotations;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

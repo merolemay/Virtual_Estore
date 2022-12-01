@@ -7,10 +7,10 @@ import java.util.List;
 @Data
 public class OrderItemDTO {
 
-        private String orderId;
+    private String orderId;
 
-        private int quantity;
+    private int quantity;
 
-        private List<ItemDTO> items;
+    private List<ItemDTO> items;
 
 }

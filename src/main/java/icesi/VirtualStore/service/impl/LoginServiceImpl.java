@@ -24,14 +24,14 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public TokenDTO login(LoginDTO loginDTO, boolean isEmail) {
 
-        User user = StreamSupport.stream(userRepository.findAll().spliterator(),false)
+        User user = StreamSupport.stream(userRepository.findAll().spliterator(), false)
                 .filter(user1 -> user1.getEmail().equals(loginDTO.getUsername()))
                 .findFirst()
                 .orElseThrow();
-        if(user.getPassword().equals(loginDTO.getPassword())) {
+        if (user.getPassword().equals(loginDTO.getPassword())) {
             Map<String, String> claims = new HashMap<>();
             claims.put("userId", user.getUserId().toString());
-            return new TokenDTO(JWTParser.createJWT(user.getUserId().toString(),user.getEmail(), user.getEmail(), claims,100000L));
+            return new TokenDTO(JWTParser.createJWT(user.getUserId().toString(), user.getEmail(), user.getEmail(), claims, 100000L));
         }
         throw new InvalidParameterException();
 

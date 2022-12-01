@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping("/items")
 public interface ItemAPI {
     @GetMapping
-    public ItemDTO getItem(String id);
+    ItemDTO getItem(String id);
 
     @PostMapping
-    public List<ItemDTO> addItemStock(ItemDTO itemDTO, int quantity);
+    List<ItemDTO> addItemStock(ItemDTO itemDTO, int quantity);
 
     @GetMapping("/all")
-    public List<ItemDTO> getAllItems();
+    List<ItemDTO> getAllItems();
 
     @PutMapping
-    public void updateItem(ItemDTO itemDTO, String name);
+    void updateItem(ItemDTO itemDTO, String name);
 
 }

@@ -15,19 +15,19 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> {
 
-    public LocalDateTimeDeserializer(){
+    public LocalDateTimeDeserializer() {
         super(LocalDateTime.class);
     }
 
     @Override
-    public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
+    public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         String text = p.getText();
-        try{
+        try {
             var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'hh:mm:ss");
             return LocalDate.from(formatter.parse(text)).atStartOfDay(ZoneOffset.UTC).toLocalDateTime();
 
-        }catch (DateTimeException dateTimeException){
-            throw new InvalidFormatException(p ,"", text, LocalDateTime.class);
+        } catch (DateTimeException dateTimeException) {
+            throw new InvalidFormatException(p, "", text, LocalDateTime.class);
         }
     }
 }

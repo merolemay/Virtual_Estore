@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class JWTParser {
 
-    private static String SECRET_KEY = "longenoguhkeytotestthisimplementationsomebytesmore";
+    private static final String SECRET_KEY = "longenoguhkeytotestthisimplementationsomebytesmore";
 
     public static String createJWT(String id, String issuer, String subject, Map<String, String> claims, long ttlMillis) {
 
@@ -46,7 +46,6 @@ public class JWTParser {
     public static Claims decodeJWT(String jwt) {
         return Jwts.parserBuilder().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).build().parseClaimsJws(jwt).getBody();
     }
-
 
 
 }

@@ -1,17 +1,17 @@
 package icesi.VirtualStore.service;
 
-import icesi.VirtualStore.dto.ItemDTO;
 import icesi.VirtualStore.model.Item;
+import icesi.VirtualStore.model.ItemType;
 
 import java.util.List;
 
 public interface ItemService {
 
-        public Item getItem(String id);
+    Item getItem(String id);
 
-        public List<Item> getAllItems();
+    List<Item> getAllItems();
 
-        public Item updateItem(Item itemDTO, String name);
+    ItemType updateItem(ItemType itemType, String name);
 
-        public Item createItem(Item itemDTO);
+    Item createItem(Item itemDTO);
 }

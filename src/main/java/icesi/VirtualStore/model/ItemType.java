@@ -4,7 +4,9 @@ package icesi.VirtualStore.model;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Table(name = "item_type")
@@ -13,7 +15,7 @@ import java.util.UUID;
 public class ItemType {
 
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID itemTypeId;
 
     private String name;

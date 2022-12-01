@@ -9,17 +9,17 @@ import java.util.List;
 @RequestMapping("/orders")
 public interface OrderAPI {
     @GetMapping
-    public OrderDTO getOrder(String id);
+    OrderDTO getOrder(String id);
 
     @GetMapping("/all/{userId}")
-    public List<OrderDTO> getUserOrders(@PathVariable String userId);
+    List<OrderDTO> getUserOrders(@PathVariable String userId);
 
     @GetMapping("/all")
-    public List<OrderDTO> getAllOrders();
+    List<OrderDTO> getAllOrders();
 
     @PostMapping
-    public OrderDTO createOrder(@RequestBody OrderDTO orderDTO);
+    OrderDTO createOrder(@RequestBody OrderDTO orderDTO);
 
     @PutMapping
-    public void updateOrder(OrderDTO orderDTO);
+    void updateOrder(OrderDTO orderDTO);
 }

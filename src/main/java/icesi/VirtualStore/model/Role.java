@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID roleId;
 
     @Column(name = "role_name")
