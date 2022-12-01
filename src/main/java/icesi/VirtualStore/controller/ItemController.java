@@ -13,6 +13,11 @@ public class ItemController implements ItemAPI {
     }
 
     @Override
+    public List<ItemDTO> addItemStock(ItemDTO itemDTO, int quantity) {
+        return null;
+    }
+
+    @Override
     public List<ItemDTO> getAllItems() {
         return null;
     }

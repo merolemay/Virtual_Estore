@@ -5,15 +5,16 @@
     <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
 
 
-    <changeSet id="1669821845948-1" author="the_best_group">
+    <changeSet id="1669928032821-1" author="the_best_group">
         <createTable tableName="order">
             <column name="order_id" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order"/>
             </column>
             <column name="total" type="DOUBLE"/>
             <column name="status" type="VARCHAR(255)"/>
-            <column name="user_id" type="UUID"/>
+            <column name="id" type="UUID"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="order" constraintName="FK_ORDER_ON_ID" referencedColumnNames="id" referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="order" constraintName="FK_ORDER_ON_ID" referencedColumnNames="user_id" referencedTableName="user"/>
     </changeSet>
+
 </databaseChangeLog>

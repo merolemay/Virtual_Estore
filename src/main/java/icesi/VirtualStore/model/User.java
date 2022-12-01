@@ -21,7 +21,7 @@ public class User {
 
     @Id
     @Type(type="org.hibernate.type.PostgresUUIDType")
-    private UUID id;
+    private UUID userId;
     private String email;
     private String phoneNumber;
     private String address;
@@ -33,7 +33,7 @@ public class User {
 
     @PrePersist
     public void generateId() {
-        this.id = UUID.randomUUID();
+        this.userId = UUID.randomUUID();
     }
 }
 

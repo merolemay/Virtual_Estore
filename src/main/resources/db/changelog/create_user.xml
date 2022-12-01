@@ -4,20 +4,17 @@
 
     <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
 
-    <changeSet id="33d4e9bc-7210-47c3-9617-c56ab7c0750d" author="the_best_group" failOnError="true">
-
+    <changeSet id="1669928180947-1" author="the_best_group">
         <createTable tableName="user">
-            <column name="id" type="UUID">
-                <constraints nullable="false" primaryKey="true" />
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
             </column>
-            <column name="email" type="varchar(255)" />
-            <column name="phone_number" type="varchar(255)" />
-            <column name="first_name" type="varchar(255)" />
-            <column name="last_name" type="varchar(255)" />
-            <column name="password" type="varchar(255)" />
-            <column name="role_id" type="UUID">
-                <constraints nullable="false" references="user_role(role_id)" foreignKeyName="fk-user-role"/>
-            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="role_id" type="UUID"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user" constraintName="FK_USER_ON_ROLE" referencedColumnNames="role_id" referencedTableName="user_role"/>
     </changeSet>
 </databaseChangeLog>
