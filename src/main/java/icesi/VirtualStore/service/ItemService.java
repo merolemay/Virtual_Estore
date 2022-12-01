@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ItemService {
 
-        public ItemDTO getItem(String id);
+        public Item getItem(String id);
 
         public List<Item> getAllItems();
 
-        public void updateItem(ItemDTO itemDTO, String name);
+        public Item updateItem(Item itemDTO, String name);
 
-        public Item createItem(ItemDTO itemDTO);
+        public Item createItem(Item itemDTO);
 }
