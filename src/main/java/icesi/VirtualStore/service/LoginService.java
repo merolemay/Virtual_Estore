@@ -6,6 +6,6 @@ import icesi.VirtualStore.dto.TokenDTO;
 
 public interface LoginService {
 
-    TokenDTO login(LoginDTO loginDTO);
+    TokenDTO login(LoginDTO loginDTO, boolean isEmail);
 
 }

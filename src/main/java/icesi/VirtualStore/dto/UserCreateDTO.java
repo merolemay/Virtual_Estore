@@ -23,17 +23,15 @@ public class UserCreateDTO {
     @NotNull
     private String phoneNumber;
 
-    @Size(min = 1, max = 120)
-    @CustomAnnotations.NameValidation
-    private String firstName;
 
     @NotNull
     @Size(min = 1, max = 120)
-    private String lastName;
+    private String address;
 
     @NotNull
     private String password;
 
+    @NotNull
     private String roleName;
 
 }

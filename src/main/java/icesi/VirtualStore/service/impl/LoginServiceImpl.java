@@ -22,10 +22,10 @@ public class LoginServiceImpl implements LoginService {
     public final UserRepository userRepository;
 
     @Override
-    public TokenDTO login(LoginDTO loginDTO) {
+    public TokenDTO login(LoginDTO loginDTO, boolean isEmail) {
 
         User user = StreamSupport.stream(userRepository.findAll().spliterator(),false)
-                .filter(user1 -> user1.getEmail().equals(loginDTO.getEmail()))
+                .filter(user1 -> user1.getEmail().equals(loginDTO.getUsername()))
                 .findFirst()
                 .orElseThrow();
         if(user.getPassword().equals(loginDTO.getPassword())) {

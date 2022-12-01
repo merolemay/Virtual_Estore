@@ -11,11 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController implements LoginAPI {
 
-
     private final LoginService loginService;
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
-        return loginService.login(loginDTO);
+        if(validateEmail(loginDTO.getUsername()))
+            return loginService.login(loginDTO, true);
+        if(validatePhoneNumber(loginDTO.getUsername()))
+            return loginService.login(loginDTO, false);
+
+        throw new RuntimeException();
+    }
+
+    private boolean validatePhoneNumber(String username) {
+        String regex = "";
+        return username.matches(regex);
+    }
+
+    private boolean validateEmail(String username) {
+        String regex = "";
+                return username.matches(regex);
     }
 }

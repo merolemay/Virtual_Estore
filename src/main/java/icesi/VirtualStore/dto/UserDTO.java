@@ -24,13 +24,9 @@ public class UserDTO {
     @NotNull
     private String phoneNumber;
 
-    @Size(min = 1, max = 120)
-    @CustomAnnotations.NameValidation
-    private String firstName;
-
     @NotNull
     @Size(min = 1, max = 120)
-    private String lastName;
+    private String address;
 
     private RoleDTO role;
 
