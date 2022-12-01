@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 public class OrderItem {
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID orderItemId;
 
     private int quantity;

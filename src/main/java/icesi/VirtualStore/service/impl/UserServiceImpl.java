@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService {
     public User createUser(User userDTO, String roleName) {
         Role role = roleRepository.findByName(roleName).orElseThrow();
         userDTO.setRole(role);
-        List<Permission> permissions = StreamSupport.stream(permissionRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        List<Permission> permissions = StreamSupport.stream(permissionRepository.findAll().spliterator(), false).collect(Collectors.toList());
         return userRepository.save(userDTO);
     }
 
     @Override
     public List<User> getUsers() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 }

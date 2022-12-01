@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Order {
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID orderId;
 
     private int total;
