@@ -67,6 +67,120 @@ public class ItemServiceIntegrationTest {
         assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
     }
 
+    @Test
+    @SneakyThrows
+    public void createItemWithInvalidName() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        itemTypeDTO.setName("a");
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        assertThat(response, is("Name must be between 2 and 50 characters"));
+    }
+
+    @Test
+    @SneakyThrows
+    public void createItemWithInvalidDescription() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        itemTypeDTO.setDescription("a");
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        assertThat(response, is("Description must be between 2 and 50 characters"));
+    }
+
+    @Test
+    @SneakyThrows
+    public void updateItemSuccessfully() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+        itemTypeDTO.setName("New Name");
+        body = objectMapper.writeValueAsString(itemTypeDTO);
+        result = mockMvc.perform(MockMvcRequestBuilders.put("/items/" + responseDTO.getItemTypeId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isOk())
+                .andReturn();
+        response = result.getResponse().getContentAsString();
+        responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+    }
+
+    @Test
+    @SneakyThrows
+    public void addItemToCartSuccessfully() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+        result = mockMvc.perform(MockMvcRequestBuilders.post("/items/" + responseDTO.getItemTypeId() + "/cart")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isOk())
+                .andReturn();
+        response = result.getResponse().getContentAsString();
+        responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+    }
+
+    @Test
+    @SneakyThrows
+    public void createItemWithInvalidPrice() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        itemTypeDTO.setPrice(-1);
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        assertThat(response, is("Price must be greater than 0"));
+    }
+
+    @Test
+    @SneakyThrows
+    public void getItemSuccessfully() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isCreated())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+        ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+        MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/items/" + responseDTO.getItemTypeId())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        String getResponse = getResult.getResponse().getContentAsString();
+        ItemTypeDTO getResponseDTO = objectMapper.readValue(getResponse, ItemTypeDTO.class);
+        assertThat(getResponseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+    }
+
     @SneakyThrows
     private ItemTypeDTO createItemDTO() {
     String body = parseResourceToString("JsonFiles/createItem.json");
