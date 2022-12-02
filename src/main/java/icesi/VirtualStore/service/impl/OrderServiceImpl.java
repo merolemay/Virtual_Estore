@@ -84,7 +84,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(UUID orderId, String status) {
-        orderRepository.updateStatusByOrderId(status,orderId);
+
+        int res = orderRepository.updateStatusByOrderId(status,orderId);
+
+        if(res == 0){
+            throw new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_O_01, VirtualStoreErrorCode.CODE_O_01.getMessage()));
+        }
     }
 
     @Override

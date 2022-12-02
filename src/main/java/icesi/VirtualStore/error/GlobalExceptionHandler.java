@@ -23,17 +23,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<VirtualStoreError> handleAnnotationException(MethodArgumentNotValidException methodArgumentNotValidException) {
-        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_06, Objects.requireNonNull(methodArgumentNotValidException.getFieldError()).getDefaultMessage()));
+        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_01, Objects.requireNonNull(methodArgumentNotValidException.getFieldError()).getDefaultMessage()));
         return new ResponseEntity<>(virtualStoreException.getError(),virtualStoreException.getHttpStatus());
     }
     @ExceptionHandler
     public ResponseEntity<VirtualStoreError> handleConstraintException(ConstraintViolationException constraintViolationException) {
-        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_06, Objects.requireNonNull(constraintViolationException.getConstraintViolations().stream().reduce("",(s, constraintViolation) ->  constraintViolation.getMessage(), (s, s2) -> s + s2))));
+        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_01, Objects.requireNonNull(constraintViolationException.getConstraintViolations().stream().reduce("",(s, constraintViolation) ->  constraintViolation.getMessage(), (s, s2) -> s + s2))));
         return new ResponseEntity<>(virtualStoreException.getError(), virtualStoreException.getHttpStatus());
     }
     @ExceptionHandler
     public ResponseEntity<VirtualStoreError> handleAnnotationTypeMismatch(MethodArgumentTypeMismatchException methodArgumentTypeMismatchException) {
-        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_06, VirtualStoreErrorCode.CODE_06.getMessage()));
+        VirtualStoreException virtualStoreException = new VirtualStoreException(HttpStatus.BAD_REQUEST, new VirtualStoreError(VirtualStoreErrorCode.CODE_01, VirtualStoreErrorCode.CODE_01.getMessage()));
         return new ResponseEntity<>(virtualStoreException.getError(), virtualStoreException.getHttpStatus());
     }
 }

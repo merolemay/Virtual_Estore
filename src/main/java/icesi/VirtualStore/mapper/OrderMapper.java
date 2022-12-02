@@ -1,5 +1,6 @@
 package icesi.VirtualStore.mapper;
 
+import icesi.VirtualStore.constant.OrderStatus;
 import icesi.VirtualStore.dto.OrderDTO;
 import icesi.VirtualStore.dto.OrderItemDTO;
 import icesi.VirtualStore.model.Order;
@@ -40,4 +41,11 @@ public interface OrderMapper {
                 .build();
     }
 
+    default String fromOrderStatus(OrderStatus status) {
+        return status.getMessage();
+    }
+
+    default OrderStatus toOrderStatus(String status) {
+        return OrderStatus.valueOf(status);
+    }
 }
