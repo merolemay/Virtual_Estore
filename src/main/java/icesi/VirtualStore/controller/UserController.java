@@ -7,6 +7,7 @@ import icesi.VirtualStore.dto.UserDTO;
 import icesi.VirtualStore.mapper.UserMapper;
 import icesi.VirtualStore.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -16,17 +17,22 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
+
 public class UserController implements UserAPI {
 
 
     public final UserService userService;
     public final UserMapper userMapper;
 
+
+
     @Override
     public UserDTO getUser(UUID userId) {
         return userMapper.fromUser(userService.getUser(userId));
     }
 
+
+    @CrossOrigin(origins = "*")
     @Override
     public UserDTO createUser(@Valid UserCreateDTO userDTO) {
         return userMapper.fromUser(userService.createUser(userMapper.fromDTO(userDTO), userDTO.getRoleName()));

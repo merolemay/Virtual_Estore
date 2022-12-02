@@ -11,6 +11,7 @@ import icesi.VirtualStore.validation.EmailValidator;
 import icesi.VirtualStore.validation.PhoneNumberValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
@@ -19,6 +20,8 @@ public class LoginController implements LoginAPI {
 
     private final LoginService loginService;
 
+
+    @CrossOrigin(origins = "*")
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
         String s = loginDTO.getUsername();
