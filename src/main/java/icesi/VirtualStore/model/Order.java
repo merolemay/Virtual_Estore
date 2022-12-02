@@ -26,9 +26,10 @@ public class Order {
 
     private String status;
 
-    @OneToMany(mappedBy = "order",
+    @OneToMany(orphanRemoval = true,
     cascade = CascadeType.MERGE,
     fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private List<OrderItem> orderItemList;
 
     @ManyToOne

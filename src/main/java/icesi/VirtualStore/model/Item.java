@@ -24,10 +24,6 @@ public class Item {
     private boolean available;
 
     @ManyToOne
-    @JoinColumn(name = "order_item_id")
-    private OrderItem orderItem;
-
-    @ManyToOne
     @JoinColumn(name = "item_type_id")
     private ItemType itemType;
 

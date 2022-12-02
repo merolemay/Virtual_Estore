@@ -26,8 +26,8 @@ public class OrderController implements OrderAPI {
 
 
     @Override
-    public OrderDTO getOrder(@NotNull UUID id) {
-        return orderMapper.fromOrder(orderService.getOrder(id));
+    public OrderDTO getOrder(@NotNull UUID orderId) {
+        return orderMapper.fromOrder(orderService.getOrder(orderId));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(Order order, UUID userId, List<OrderItemDTO> items) {
         User user = userRepository.findById(userId).orElseThrow();
-        order.setUser(user);
+
         List<OrderItem> orderItems = new ArrayList<>();
 
         for(OrderItemDTO item : items){
@@ -58,6 +58,14 @@ public class OrderServiceImpl implements OrderService {
             orderItems.add(orderItem);
         }
 
+        orderItemRepository.saveAll(orderItems);
+        orderItems.forEach(it-> {
+            it.getItems().forEach(item -> {
+                item.setAvailable(false);
+                itemRepository.updateAvailableByItemId(false, item.getItemId());
+            });
+        });
+
         double total = orderItems.stream().reduce(0.0, (a, b) ->{
             Optional<Item> item = b.getItems().stream().findFirst();
             return item.map(value -> a + b.getQuantity() * value.getItemType().getPrice()).orElse(a);
@@ -65,11 +73,9 @@ public class OrderServiceImpl implements OrderService {
 
         order.setTotal(total);
 
-        Order response =  orderRepository.save(order);
+        order.setOrderItemList(orderItems);
 
-        orderItemRepository.saveAll(orderItems);
-
-        return response;
+        return orderRepository.save(order);
     }
 
     @Override
@@ -84,8 +90,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
-        List<Order>orders = StreamSupport.stream(orderRepository.findAll().spliterator(),false).collect(Collectors.toList());
-        return orders;
+        return StreamSupport.stream(orderRepository.findAll().spliterator(),false).collect(Collectors.toList());
     }
 
     @Override

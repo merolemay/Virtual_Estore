@@ -32,7 +32,4 @@ public class UserDTO {
 
     private RoleDTO role;
 
-    @OneToMany
-    private List<OrderDTO> orderList;
-
 }

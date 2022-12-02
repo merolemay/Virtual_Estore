@@ -18,9 +18,4 @@ public interface ItemRepository extends CrudRepository<Item, UUID> {
     @Query("update Item i set i.available = ?1 where i.itemId = ?2")
     void updateAvailableByItemId(boolean available, UUID itemId);
 
-    @Transactional
-    @Modifying
-    @Query("update Item i set i.orderItem = ?1 where i.itemId = ?2")
-    void updateOrderItemByItemId(OrderItem orderItem, UUID itemId);
-
 }

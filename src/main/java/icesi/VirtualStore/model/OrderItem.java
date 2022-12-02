@@ -24,14 +24,10 @@ public class OrderItem {
 
     private int quantity;
 
-    @OneToMany(mappedBy = "orderItem",
-            cascade = CascadeType.MERGE,
+    @OneToMany(orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_item_id")
     private List<Item> items;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
 
     @PrePersist
     public void generateId() {

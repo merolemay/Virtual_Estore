@@ -16,12 +16,14 @@ public interface OrderMapper {
     @Mapping(source = "status", target = "status")
     @Mapping(source = "total", target = "total")
     @Mapping(source = "user.userId", target = "userId")
+    @Mapping(source = "orderItemList", target = "orderItems")
     OrderDTO fromOrder(Order order);
 
     @Mapping(source = "orderId", target = "orderId")
     @Mapping(source = "status", target = "status")
     @Mapping(source = "total", target = "total")
     @Mapping(source = "userId", target = "user.userId")
+    @Mapping(source = "orderItems", target = "orderItemList")
     Order fromDTO(OrderDTO orderDTO);
 
     @Mapping(target = "orderItemId", source = "orderItemId")

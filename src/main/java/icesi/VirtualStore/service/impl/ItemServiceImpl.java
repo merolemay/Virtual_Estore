@@ -50,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
         ItemType itemType = itemTypeRepository.findById(itemTypeId).orElseThrow();
 
         for (int i = 0; i < quantity; i++) {
-            Item item = Item.builder().itemId(UUID.randomUUID()).orderItem(null).available(true).itemType(itemType).build();
+            Item item = Item.builder().itemId(UUID.randomUUID()).available(true).itemType(itemType).build();
             itemRepository.save(item);
         }
 
