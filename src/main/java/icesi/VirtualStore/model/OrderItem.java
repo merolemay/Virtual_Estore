@@ -1,7 +1,10 @@
 package icesi.VirtualStore.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,6 +14,9 @@ import java.util.UUID;
 @Table(name = "order_item")
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
     @Id
     @Type(type = "org.hibernate.type.PostgresUUIDType")
@@ -24,4 +30,9 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+
+    @PrePersist
+    public void generateId() {
+        this.orderItemId = UUID.randomUUID();
+    }
 }

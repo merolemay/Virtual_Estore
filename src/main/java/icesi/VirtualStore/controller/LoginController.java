@@ -15,21 +15,21 @@ public class LoginController implements LoginAPI {
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
-        if(validateEmail(loginDTO.getUsername()))
+        if (validateEmail(loginDTO.getUsername()))
             return loginService.login(loginDTO, true);
-        if(validatePhoneNumber(loginDTO.getUsername()))
+        if (validatePhoneNumber(loginDTO.getUsername()))
             return loginService.login(loginDTO, false);
 
         throw new RuntimeException();
     }
 
     private boolean validatePhoneNumber(String username) {
-        String regex = "";
+        String regex = "^\\+[1-9][1-9][\\s\\S]*";
         return username.matches(regex);
     }
 
     private boolean validateEmail(String username) {
-        String regex = "";
-                return username.matches(regex);
+        String regex = "[A-Za-z\\d]+@[A-Za-z\\d]+\\.[A-Za-z]+(.[A-Za-z]+)?";
+        return username.matches(regex);
     }
 }

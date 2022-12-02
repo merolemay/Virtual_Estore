@@ -1,6 +1,9 @@
 package icesi.VirtualStore.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -12,6 +15,9 @@ import java.util.UUID;
 @Table(name = "user_permission")
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Permission {
 
     @Id

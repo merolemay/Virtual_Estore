@@ -1,26 +1,28 @@
 package icesi.VirtualStore.api;
 
 
-import icesi.VirtualStore.dto.ItemDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import icesi.VirtualStore.dto.ItemTypeDTO;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/items")
 public interface ItemAPI {
+
     @GetMapping
-    ItemDTO getItem(String id);
+    List<ItemTypeDTO> getAllItemTypes();
 
     @PostMapping
-    List<ItemDTO> addItemStock(ItemDTO itemDTO, int quantity);
+    ItemTypeDTO addItemType(ItemTypeDTO itemTypeDTO);
 
-    @GetMapping("/all")
-    List<ItemDTO> getAllItems();
+    @GetMapping("/{itemId}")
+    ItemTypeDTO getItem(@PathVariable UUID itemId);
 
     @PutMapping
-    void updateItem(ItemDTO itemDTO, String name);
+    boolean updateItem(ItemTypeDTO itemTypeDTO, UUID name);
+
+    @PostMapping("/{itemId}/stock")
+    boolean addItemToStock(@PathVariable UUID itemId, int quantity);
 
 }

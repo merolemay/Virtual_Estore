@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -20,26 +21,39 @@ public class ItemServiceImpl implements ItemService {
     private final ItemTypeRepository itemTypeRepository;
 
     @Override
-    public Item getItem(String id) {
-        return null;
+    public ItemType getItem(UUID id) {
+        return itemTypeRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public List<Item> getAllItems() {
-        return StreamSupport.stream(itemRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    public List<ItemType> getAllItemTypes() {
+        return StreamSupport.stream(itemTypeRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
-    public ItemType updateItem(ItemType itemType, String name) {
-        int result = itemTypeRepository.updateNameAndDescriptionAndPriceAndImageByItemTypeId(itemType.getName(), itemType.getDescription(), itemType.getPrice(), itemType.getImage(), itemType.getItemTypeId());
+    public boolean updateItem(ItemType itemType, UUID itemTypeId) {
+        int result = itemTypeRepository.updateNameAndDescriptionAndPriceAndImageByItemTypeId(itemType.getName(), itemType.getDescription(), itemType.getPrice(), itemType.getImage(), itemTypeId);
         if (result == 0) {
             throw new RuntimeException("Item type not found");
         }
-        return itemTypeRepository.findByName(itemType.getName()).get();
+        return true;
     }
 
     @Override
-    public Item createItem(Item itemDTO) {
-        return null;
+    public ItemType createItem(ItemType itemDTO) {
+        return itemTypeRepository.save(itemDTO);
+    }
+
+    @Override
+    public List<Item> addItemToStock(UUID itemTypeId, int quantity) {
+
+        ItemType itemType = itemTypeRepository.findById(itemTypeId).orElseThrow();
+
+        for (int i = 0; i < quantity; i++) {
+            Item item = Item.builder().itemId(UUID.randomUUID()).orderItem(null).available(true).itemType(itemType).build();
+            itemRepository.save(item);
+        }
+
+        return StreamSupport.stream(itemRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 }

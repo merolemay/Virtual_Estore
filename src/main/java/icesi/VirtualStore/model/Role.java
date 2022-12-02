@@ -1,6 +1,9 @@
 package icesi.VirtualStore.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.util.UUID;
 @Data
 @Table(name = "user_role")
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id

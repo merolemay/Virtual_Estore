@@ -3,11 +3,12 @@ package icesi.VirtualStore.dto;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class OrderDTO {
 
-    private String orderId;
+    private UUID orderId;
 
     private Double total;
 
