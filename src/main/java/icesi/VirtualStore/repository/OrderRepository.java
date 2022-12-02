@@ -17,4 +17,5 @@ public interface OrderRepository extends CrudRepository<Order, UUID> {
     @Query("update Order o set o.status = ?1 where o.orderId = ?2")
     int updateStatusByOrderId(String status, UUID orderId);
 
+
 }

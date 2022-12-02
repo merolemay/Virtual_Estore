@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -25,7 +26,8 @@ public class User {
     private String phoneNumber;
     private String address;
     private String password;
-
+    @OneToMany
+    private List<Order> orderList;
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

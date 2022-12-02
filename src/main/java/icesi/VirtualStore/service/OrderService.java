@@ -12,10 +12,12 @@ public interface OrderService {
         public Order getOrder(UUID orderId);
         public Order createOrder(Order order);
 
-        public Order updateOrder(UUID orderId, String status);
+        public Order updateOrder(Order order, String status);
 
         public void deleteOrder(UUID orderId);
 
         public List<Order> getOrders();
+
+        public List<Order> getUserOrders(UUID userId);
 
 }
