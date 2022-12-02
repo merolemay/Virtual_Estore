@@ -6,6 +6,8 @@ import icesi.VirtualStore.dto.TokenDTO;
 
 public interface LoginService {
 
-    TokenDTO login(LoginDTO loginDTO, boolean isEmail);
+    TokenDTO loginByEmail(LoginDTO loginDTO);
+
+    TokenDTO loginByPhoneNumber(LoginDTO loginDTO);
 
 }
