@@ -2,6 +2,7 @@ package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import icesi.VirtualStore.dto.OrderDTO;
+import icesi.VirtualStore.dto.OrderUpdateDTO;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,6 +30,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -40,6 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class OrderServiceIntegrationTest {
 
     private MockMvc mockMvc;
+
 
     @Autowired
     private WebApplicationContext wac;
@@ -74,17 +78,42 @@ public class OrderServiceIntegrationTest {
         String body = objectMapper.writeValueAsString(baseOrderDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/orders/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(body)).andExpect(status().isOk())
+                         .content(body)).andExpect(status().isOk())
                 .andReturn();
 
         OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
-        assertThat(orderResult, hasProperty("firstName", is("Juan")));
+        assertThat(orderResult, hasProperty("status", is("CREATED")));
 
     }
 
+    @Test
+    @SneakyThrows
+    public void updateOrderSuccessfully()  {
+        OrderUpdateDTO updateOrder =  updateOrder();
+        String body = objectMapper.writeValueAsString(updateOrder);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/orders/"+ORDER_UUID)
+                        .contentType(MediaType.APPLICATION_JSON)
+                         .content(body)).andExpect(status().isOk())
+                .andReturn();
+
+        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
+        assertThat(orderResult, hasProperty("status", is("COMPLETED")));
+
+    }
+    @Test
+    @SneakyThrows
+    public void deleteOrderSuccessfully()  {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/orders/"+ORDER_UUID)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThrows(EmptyResultDataAccessException.class, () ->  objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class));
+
+    }
     @SneakyThrows
     private OrderDTO baseOrder(){
-        String body = parseResourceToString("createOrder.json");
+        String body = parseResourceToString("JsonFiles/createOrder.json");
         return objectMapper.readValue(body, OrderDTO.class);
     }
     @SneakyThrows
@@ -94,5 +123,12 @@ public class OrderServiceIntegrationTest {
             return FileCopyUtils.copyToString(reader);
         }
     }
+
+    @SneakyThrows
+    private OrderUpdateDTO updateOrder(){
+        String body = parseResourceToString("JsonFiles/updateOrder.json");
+        return objectMapper.readValue(body, OrderUpdateDTO.class);
+    }
+
 
 }
