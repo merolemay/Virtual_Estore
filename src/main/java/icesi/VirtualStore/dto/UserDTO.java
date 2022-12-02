@@ -22,7 +22,6 @@ public class UserDTO {
 
     private String phoneNumber;
 
-    @Size(min = 1, max = 120)
     private String address;
 
     private RoleDTO role;

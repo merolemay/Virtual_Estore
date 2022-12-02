@@ -1,5 +1,6 @@
 package icesi.VirtualStore.dto;
 
+import icesi.VirtualStore.constant.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,5 @@ public class OrderUpdateDTO {
 
     private UUID orderId;
 
-    private String status;
+    private OrderStatus status;
 }

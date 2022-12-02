@@ -16,15 +16,12 @@ public class UserCreateDTO {
 
     private UUID id;
 
-    @NotBlank
     private String email;
 
-    @NotNull
     private String phoneNumber;
 
 
-    @NotNull
-    @Size(min = 1, max = 120)
+    @Size(min = 10, max = 120, message = "The address must have between 10 and 120 characters")
     private String address;
 
     @NotNull
