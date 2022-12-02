@@ -7,6 +7,7 @@ import icesi.VirtualStore.mapper.OrderMapper;
 import icesi.VirtualStore.model.Order;
 import icesi.VirtualStore.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class OrderController implements OrderAPI {
 
     public final OrderService orderService;

@@ -66,7 +66,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
 
     private static final String ROLE_ID_CLAIM_NAME = "roleId";
 
-    private static final String[] excludedPaths = {"POST /users", "POST /login","OPTIONS /users", "OPTIONS /login"};
+    private static final String[] excludedPaths = {"POST /users", "POST /login","OPTIONS /users", "OPTIONS /login", "OPTIONS /items", "OPTIONS /orders"};
 
     private final LoginService loginService;
 

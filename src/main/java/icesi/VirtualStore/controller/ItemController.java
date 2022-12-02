@@ -5,6 +5,7 @@ import icesi.VirtualStore.dto.ItemTypeDTO;
 import icesi.VirtualStore.mapper.ItemTypeMapper;
 import icesi.VirtualStore.service.ItemService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class ItemController implements ItemAPI {
 
     private ItemService itemService;
@@ -23,6 +25,8 @@ public class ItemController implements ItemAPI {
     public ItemTypeDTO getItem(UUID id) {
         return itemTypeMapper.fromItem(itemService.getItem(id));
     }
+
+
 
     @Override
     public ItemTypeDTO addItemType(@Valid ItemTypeDTO itemTypeDTO) {
