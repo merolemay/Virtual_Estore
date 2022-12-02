@@ -1,0 +1,15 @@
+{
+  "OrderId": "'5631cbd3-cf53-415f-bd06-4e995ee3c322'",
+  "status": "CREATED",
+  "orderItems": [
+    {
+      "quantity": 2,
+      "itemId": "9fc55573-220c-4a48-996d-e1c884c6f0f1"
+    },
+    {
+      "quantity": 1,
+      "itemId": "aa2a5189-f47a-47d1-9195-9648b2dc51ee"
+    }
+  ],
+  "userId": "bde81b6c-d1e2-410e-9fb2-6797d5181190"
+}
