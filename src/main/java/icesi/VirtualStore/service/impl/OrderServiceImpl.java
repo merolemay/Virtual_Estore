@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
             List<Item> list = itemRepository.findByAvailableAndItemType_ItemTypeId(true, item.getItemId());
 
             if(list.size() < item.getQuantity()){
-                throw new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_I_02, VirtualStoreErrorCode.CODE_I_02.getMessage()))
+                throw new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_I_02, VirtualStoreErrorCode.CODE_I_02.getMessage()));
             }
 
             list = list.stream().limit(item.getQuantity()).collect(Collectors.toList());
