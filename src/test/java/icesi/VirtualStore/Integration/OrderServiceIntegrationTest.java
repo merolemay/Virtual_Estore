@@ -57,7 +57,7 @@ public class OrderServiceIntegrationTest {
     @Test
     @SneakyThrows
     public void getOrdersSuccessfully()  {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/" + ORDER_UUID)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/"+ORDER_UUID)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -72,7 +72,7 @@ public class OrderServiceIntegrationTest {
     public void createOrderSuccessfully()  {
         OrderDTO baseOrderDTO =  baseOrder();
         String body = objectMapper.writeValueAsString(baseOrderDTO);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/orders")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/orders/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body)).andExpect(status().isOk())
                 .andReturn();
@@ -84,7 +84,7 @@ public class OrderServiceIntegrationTest {
 
     @SneakyThrows
     private OrderDTO baseOrder(){
-        String body = parseResourceToString("createOrder.json.json");
+        String body = parseResourceToString("createOrder.json");
         return objectMapper.readValue(body, OrderDTO.class);
     }
     @SneakyThrows
