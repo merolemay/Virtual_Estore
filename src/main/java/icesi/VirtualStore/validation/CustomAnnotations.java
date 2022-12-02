@@ -7,25 +7,24 @@ import java.lang.annotation.*;
 public interface CustomAnnotations {
 
     @Documented
-    @Constraint(validatedBy = NameValidator.class)
+    @Constraint(validatedBy = UsernameValidator.class)
     @Target({ ElementType.METHOD, ElementType.FIELD })
     @Retention(RetentionPolicy.RUNTIME)
-    @interface NameValidation {
+    @interface ValidUsername {
 
 
-        String message() default "Name is invalid";
+        String message() default "Username is not valid";
 
         Class<?>[] groups() default {};
 
         Class<? extends Payload>[] payload() default {};
 
     }
-
     @Documented
     @Constraint(validatedBy = EmailValidator.class)
-    @Target({ ElementType.METHOD, ElementType.FIELD })
+    @Target({ ElementType.METHOD, ElementType.FIELD,ElementType.LOCAL_VARIABLE})
     @Retention(RetentionPolicy.RUNTIME)
-    @interface EmailValidation {
+    @interface ValidEmail {
 
 
         String message() default "Email is invalid";
@@ -35,6 +34,23 @@ public interface CustomAnnotations {
         Class<? extends Payload>[] payload() default {};
 
     }
+
+
+    @Documented
+    @Constraint(validatedBy = UsernameValidator.class)
+    @Target({ ElementType.METHOD, ElementType.FIELD,ElementType.LOCAL_VARIABLE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface ValidPhoneNumber {
+
+
+        String message() default "PhoneNumber is not valid";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+
+    }
+
 }
 
 

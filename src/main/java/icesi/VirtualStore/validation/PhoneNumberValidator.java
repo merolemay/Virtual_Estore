@@ -3,11 +3,11 @@ package icesi.VirtualStore.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class NameValidator implements ConstraintValidator<CustomAnnotations.NameValidation, String> {
+public class PhoneNumberValidator implements ConstraintValidator<CustomAnnotations.ValidPhoneNumber, String> {
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        String nameRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+        String nameRegex = "^\\+[1-9][1-9][\\s\\S]*";
 
         return s.matches(nameRegex);
     }

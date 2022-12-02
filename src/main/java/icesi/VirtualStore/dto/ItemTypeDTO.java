@@ -14,11 +14,11 @@ import java.util.UUID;
 public class ItemTypeDTO {
 
     private UUID itemTypeId;
-
+    @NotNull
     private String name;
-
+    @NotNull
     private String description;
-
+    @NotNull
     private double price;
 
     private String image;

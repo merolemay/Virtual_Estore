@@ -4,6 +4,8 @@ import icesi.VirtualStore.api.LoginAPI;
 import icesi.VirtualStore.dto.LoginDTO;
 import icesi.VirtualStore.dto.TokenDTO;
 import icesi.VirtualStore.service.LoginService;
+import icesi.VirtualStore.validation.EmailValidator;
+import icesi.VirtualStore.validation.PhoneNumberValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,21 +17,15 @@ public class LoginController implements LoginAPI {
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
-        if (validateEmail(loginDTO.getUsername()))
+        String s = loginDTO.getUsername();
+        EmailValidator emailValidator = new EmailValidator();
+        PhoneNumberValidator phoneNumberValidator = new PhoneNumberValidator();
+        if (emailValidator.isValid(s, null))
             return loginService.login(loginDTO, true);
-        if (validatePhoneNumber(loginDTO.getUsername()))
+        if (phoneNumberValidator.isValid(s, null))
             return loginService.login(loginDTO, false);
 
         throw new RuntimeException();
     }
 
-    private boolean validatePhoneNumber(String username) {
-        String regex = "^\\+[1-9][1-9][\\s\\S]*";
-        return username.matches(regex);
-    }
-
-    private boolean validateEmail(String username) {
-        String regex = "[A-Za-z\\d]+@[A-Za-z\\d]+\\.[A-Za-z]+(.[A-Za-z]+)?";
-        return username.matches(regex);
-    }
 }
