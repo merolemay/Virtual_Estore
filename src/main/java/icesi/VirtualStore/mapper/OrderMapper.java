@@ -12,7 +12,7 @@ public interface OrderMapper {
         @Mapping(source = "status", target = "status")
         @Mapping(source = "total", target = "total")
         @Mapping(source = "orderItemList", target = "orderItems")
-        OrderDTO fromItem(Order order);
+        OrderDTO fromOrder(Order order);
 
         @Mapping(source = "orderId", target = "orderId")
         @Mapping(source = "status", target = "status")

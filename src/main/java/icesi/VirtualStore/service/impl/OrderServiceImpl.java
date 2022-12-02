@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @AllArgsConstructor
 @Service
@@ -49,6 +50,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
-        return orderRepository.getOrders().stream().map(orderMapper::fromOrder).collect(Collectors.toList());
+        return StreamSupport.stream(orderRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 }
