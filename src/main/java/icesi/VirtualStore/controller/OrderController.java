@@ -47,7 +47,7 @@ public class OrderController implements OrderAPI {
 
     @Override
     public void updateOrder(OrderUpdateDTO orderUpdateDTO) {
-       orderService.updateOrder(orderUpdateDTO.getOrderId(),orderUpdateDTO.getStatus());
+       orderService.updateOrder(orderUpdateDTO.getOrderId(),orderUpdateDTO.getStatus().toString());
     }
 
     @Override
