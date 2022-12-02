@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
@@ -39,12 +40,12 @@ public class OrderController implements OrderAPI {
     }
 
     @Override
-    public OrderDTO createOrder(OrderDTO orderDTO) {
+    public OrderDTO createOrder(@Valid OrderDTO orderDTO) {
         return orderMapper.fromOrder(orderService.createOrder(orderMapper.fromDTO(orderDTO)));
     }
 
     @Override
-    public OrderDTO updateOrder(OrderDTO orderDTO,String status) {
-        return orderMapper.fromOrder(orderService.updateOrder(orderMapper.fromDTO(orderDTO),status));
+    public void updateOrder(OrderDTO orderDTO,String status) {
+       orderService.updateOrder(orderMapper.fromDTO(orderDTO),status);
     }
 }

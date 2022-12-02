@@ -22,5 +22,5 @@ public interface OrderAPI {
     OrderDTO createOrder(@RequestBody OrderDTO orderDTO);
 
     @PutMapping
-    OrderDTO updateOrder(OrderDTO orderDTO, String Status);
+    void updateOrder(OrderDTO orderDTO, String Status);
 }
