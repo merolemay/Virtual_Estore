@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "order_item")
@@ -17,7 +18,8 @@ public class OrderItem {
 
     private int quantity;
 
-
+    @OneToMany
+    private List<Item> items;
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
