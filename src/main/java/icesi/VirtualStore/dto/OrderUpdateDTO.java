@@ -10,15 +10,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderUpdateDTO {
 
     private UUID orderId;
 
-    private Double total;
-
     private String status;
-
-    private List<OrderItemDTO> orderItems;
-
-    private UUID userId;
 }

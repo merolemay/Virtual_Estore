@@ -5,9 +5,9 @@
     <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
 
 
-    <changeSet id="1669930220119-1" author="the_best_group">
+    <changeSet id="1669952404502-1" author="theBestGroup">
         <createTable tableName="item">
-            <column name="itemid" type="UUID">
+            <column name="item_id" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_item"/>
             </column>
             <column name="available" type="BOOLEAN">

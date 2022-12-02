@@ -4,6 +4,7 @@ package icesi.VirtualStore.api;
 import icesi.VirtualStore.dto.ItemTypeDTO;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,16 +14,16 @@ public interface ItemAPI {
     @GetMapping
     List<ItemTypeDTO> getAllItemTypes();
 
-    @PostMapping
-    ItemTypeDTO addItemType(ItemTypeDTO itemTypeDTO);
+    @PostMapping()
+    ItemTypeDTO addItemType(@RequestBody ItemTypeDTO itemTypeDTO);
 
-    @GetMapping("/{itemId}")
-    ItemTypeDTO getItem(@PathVariable UUID itemId);
+    @GetMapping("/{id}")
+    ItemTypeDTO getItem(@PathVariable UUID id);
 
-    @PutMapping
-    boolean updateItem(ItemTypeDTO itemTypeDTO, UUID name);
+    @PutMapping("/{id}")
+    boolean updateItem(@RequestBody ItemTypeDTO itemTypeDTO, @PathVariable UUID id);
 
     @PostMapping("/{itemId}/stock")
-    boolean addItemToStock(@PathVariable UUID itemId, int quantity);
+    boolean addItemToStock(@PathVariable UUID itemId, @RequestBody int quantity);
 
 }

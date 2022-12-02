@@ -26,8 +26,7 @@ public class User {
     private String phoneNumber;
     private String address;
     private String password;
-    @OneToMany
-    private List<Order> orderList;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

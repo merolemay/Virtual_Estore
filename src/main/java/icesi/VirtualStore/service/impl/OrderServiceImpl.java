@@ -1,14 +1,19 @@
 package icesi.VirtualStore.service.impl;
 
 
-import icesi.VirtualStore.model.Order;
+import icesi.VirtualStore.dto.OrderItemDTO;
+import icesi.VirtualStore.model.*;
+import icesi.VirtualStore.repository.ItemRepository;
+import icesi.VirtualStore.repository.OrderItemRepository;
 import icesi.VirtualStore.repository.OrderRepository;
 import icesi.VirtualStore.repository.UserRepository;
 import icesi.VirtualStore.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,7 +25,11 @@ public class OrderServiceImpl implements OrderService {
 
     public final OrderRepository orderRepository;
 
+    public final OrderItemRepository orderItemRepository;
+
     public final UserRepository userRepository;
+
+    public final ItemRepository itemRepository;
 
 
 
@@ -30,15 +39,42 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order createOrder(Order orderDTO) {
-        userRepository.findById(orderDTO.getUser().getUserId()).orElseThrow().getOrderList().add(orderDTO);
-        return orderRepository.save(orderDTO);
+    public Order createOrder(Order order, UUID userId, List<OrderItemDTO> items) {
+        User user = userRepository.findById(userId).orElseThrow();
+        order.setUser(user);
+        List<OrderItem> orderItems = new ArrayList<>();
+
+        for(OrderItemDTO item : items){
+            List<Item> list = itemRepository.findByAvailableAndItemType_ItemTypeId(true, item.getItemId());
+
+            if(list.size() < item.getQuantity()){
+                throw new RuntimeException("Not enough items in stock");
+            }
+
+            list = list.stream().limit(item.getQuantity()).collect(Collectors.toList());
+
+            OrderItem orderItem = OrderItem.builder().quantity(item.getQuantity()).items(list).build();
+
+            orderItems.add(orderItem);
+        }
+
+        double total = orderItems.stream().reduce(0.0, (a, b) ->{
+            Optional<Item> item = b.getItems().stream().findFirst();
+            return item.map(value -> a + b.getQuantity() * value.getItemType().getPrice()).orElse(a);
+        } , Double::sum);
+
+        order.setTotal(total);
+
+        Order response =  orderRepository.save(order);
+
+        orderItemRepository.saveAll(orderItems);
+
+        return response;
     }
 
     @Override
-    public void updateOrder(Order order, String status) {
-        orderRepository.updateStatusByOrderId(status,order.getOrderId());
-         orderRepository.findById(order.getOrderId()).orElseThrow();
+    public void updateOrder(UUID orderId, String status) {
+        orderRepository.updateStatusByOrderId(status,orderId);
     }
 
     @Override
@@ -48,11 +84,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders() {
-        return StreamSupport.stream(orderRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        List<Order>orders = StreamSupport.stream(orderRepository.findAll().spliterator(),false).collect(Collectors.toList());
+        return orders;
     }
 
     @Override
     public List<Order> getUserOrders(UUID userId) {
-        return userRepository.findById(userId).get().getOrderList();
+        return orderRepository.findByUser_UserId(userId);
     }
 }

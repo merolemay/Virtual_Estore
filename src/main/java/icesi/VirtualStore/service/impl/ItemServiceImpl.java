@@ -31,8 +31,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public boolean updateItem(ItemType itemType, UUID itemTypeId) {
-        int result = itemTypeRepository.updateNameAndDescriptionAndPriceAndImageByItemTypeId(itemType.getName(), itemType.getDescription(), itemType.getPrice(), itemType.getImage(), itemTypeId);
+    public boolean updateItem(ItemType itemType, UUID id) {
+        int result = itemTypeRepository.updateNameAndDescriptionAndPriceAndImageByItemTypeId(itemType.getName(), itemType.getDescription(), itemType.getPrice(), itemType.getImage(), id);
         if (result == 0) {
             throw new RuntimeException("Item type not found");
         }

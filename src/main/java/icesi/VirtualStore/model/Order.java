@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-@Table(name = "order")
+@Table(name = "`order`")
 @Entity
 @Data
 @Builder
@@ -25,22 +25,15 @@ public class Order {
     private double total;
 
     private String status;
-    @OneToMany
+
+    @OneToMany(mappedBy = "order",
+    cascade = CascadeType.MERGE,
+    fetch = FetchType.LAZY)
     private List<OrderItem> orderItemList;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
-
-    public double getTotal() {
-        double total = 0;
-        for (OrderItem i:orderItemList) {
-           for(Item ii: i.getItems()){
-               total+= ii.getItemType().getPrice();
-           }
-        }
-        return total;
-    }
 
     @PrePersist
     public void generateId() {

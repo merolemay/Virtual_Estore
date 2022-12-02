@@ -7,6 +7,7 @@ import icesi.VirtualStore.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,13 +25,14 @@ public class ItemController implements ItemAPI {
     }
 
     @Override
-    public ItemTypeDTO addItemType(ItemTypeDTO itemTypeDTO) {
+    public ItemTypeDTO addItemType(@Valid ItemTypeDTO itemTypeDTO) {
+
         return itemTypeMapper.fromItem(itemService.createItem(itemTypeMapper.fromDTO(itemTypeDTO)));
     }
 
     @Override
-    public boolean addItemToStock(UUID itemTypeId, int quantity) {
-        boolean isEmpty = itemService.addItemToStock(itemTypeId, quantity).isEmpty();
+    public boolean addItemToStock(UUID itemId, int quantity) {
+        boolean isEmpty = itemService.addItemToStock(itemId, quantity).isEmpty();
         return !isEmpty;
     }
 
@@ -40,7 +42,7 @@ public class ItemController implements ItemAPI {
     }
 
     @Override
-    public boolean updateItem(ItemTypeDTO itemTypeDTO, UUID itemTypeId) {
-        return itemService.updateItem(itemTypeMapper.fromDTO(itemTypeDTO),itemTypeId);
+    public boolean updateItem(@Valid ItemTypeDTO itemTypeDTO, UUID id) {
+        return itemService.updateItem(itemTypeMapper.fromDTO(itemTypeDTO), id);
     }
 }

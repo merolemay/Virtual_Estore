@@ -12,7 +12,7 @@ public interface ItemService {
 
     List<ItemType> getAllItemTypes();
 
-    boolean updateItem(ItemType itemType, UUID itemTypeId);
+    boolean updateItem(ItemType itemType, UUID id);
 
     ItemType createItem(ItemType itemDTO);
 

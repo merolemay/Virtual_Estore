@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserDTO {
 
-    private UUID id;
+    private UUID userId;
 
     @NotBlank
     private String email;
@@ -33,6 +33,6 @@ public class UserDTO {
     private RoleDTO role;
 
     @OneToMany
-    private List<Order> orderList;
+    private List<OrderDTO> orderList;
 
 }

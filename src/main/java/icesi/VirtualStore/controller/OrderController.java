@@ -2,6 +2,7 @@ package icesi.VirtualStore.controller;
 
 import icesi.VirtualStore.api.OrderAPI;
 import icesi.VirtualStore.dto.OrderDTO;
+import icesi.VirtualStore.dto.OrderUpdateDTO;
 import icesi.VirtualStore.mapper.OrderMapper;
 import icesi.VirtualStore.model.Order;
 import icesi.VirtualStore.service.OrderService;
@@ -41,11 +42,11 @@ public class OrderController implements OrderAPI {
 
     @Override
     public OrderDTO createOrder(@Valid OrderDTO orderDTO) {
-        return orderMapper.fromOrder(orderService.createOrder(orderMapper.fromDTO(orderDTO)));
+        return orderMapper.fromOrder(orderService.createOrder(orderMapper.fromDTO(orderDTO), orderDTO.getUserId(), orderDTO.getOrderItems()));
     }
 
     @Override
-    public void updateOrder(OrderDTO orderDTO,String status) {
-       orderService.updateOrder(orderMapper.fromDTO(orderDTO),status);
+    public void updateOrder(OrderUpdateDTO orderUpdateDTO) {
+       orderService.updateOrder(orderUpdateDTO.getOrderId(),orderUpdateDTO.getStatus());
     }
 }
