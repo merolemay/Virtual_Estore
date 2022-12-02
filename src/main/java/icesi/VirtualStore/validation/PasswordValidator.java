@@ -12,4 +12,3 @@ public class PasswordValidator implements ConstraintValidator<CustomAnnotations.
         return s.matches(nameRegex);
     }
 }
-

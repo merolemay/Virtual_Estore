@@ -1,7 +1,10 @@
 package icesi.VirtualStore.service.impl;
 
 
+import icesi.VirtualStore.constant.VirtualStoreErrorCode;
 import icesi.VirtualStore.dto.OrderItemDTO;
+import icesi.VirtualStore.error.exception.VirtualStoreError;
+import icesi.VirtualStore.error.exception.VirtualStoreException;
 import icesi.VirtualStore.model.*;
 import icesi.VirtualStore.repository.ItemRepository;
 import icesi.VirtualStore.repository.OrderItemRepository;
@@ -9,6 +12,7 @@ import icesi.VirtualStore.repository.OrderRepository;
 import icesi.VirtualStore.repository.UserRepository;
 import icesi.VirtualStore.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,12 +39,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrder(UUID orderId) {
-        return orderRepository.findById(orderId).orElseThrow();
+        return orderRepository.findById(orderId).orElseThrow(()-> new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_O_01, VirtualStoreErrorCode.CODE_O_01.getMessage())));
     }
 
     @Override
     public Order createOrder(Order order, UUID userId, List<OrderItemDTO> items) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(()-> new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_O_01, VirtualStoreErrorCode.CODE_O_01.getMessage())));
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -48,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
             List<Item> list = itemRepository.findByAvailableAndItemType_ItemTypeId(true, item.getItemId());
 
             if(list.size() < item.getQuantity()){
-                throw new RuntimeException("Not enough items in stock");
+                throw new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_I_02, VirtualStoreErrorCode.CODE_I_02.getMessage()));
             }
 
             list = list.stream().limit(item.getQuantity()).collect(Collectors.toList());
