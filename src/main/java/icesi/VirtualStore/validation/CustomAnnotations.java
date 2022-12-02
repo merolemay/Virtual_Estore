@@ -51,6 +51,20 @@ public interface CustomAnnotations {
 
     }
 
+    @Documented
+    @Constraint(validatedBy = UsernameValidator.class)
+    @Target({ ElementType.METHOD, ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface ValidPassword {
+
+
+        String message() default "Password is not valid, it must contain minimum eight characters, at least one letter and one number";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+
+    }
 }
 
 
