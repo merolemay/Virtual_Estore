@@ -1,7 +1,10 @@
 package icesi.VirtualStore.service.impl;
 
 
+import icesi.VirtualStore.constant.VirtualStoreErrorCode;
 import icesi.VirtualStore.dto.OrderItemDTO;
+import icesi.VirtualStore.error.exception.VirtualStoreError;
+import icesi.VirtualStore.error.exception.VirtualStoreException;
 import icesi.VirtualStore.model.*;
 import icesi.VirtualStore.repository.ItemRepository;
 import icesi.VirtualStore.repository.OrderItemRepository;
@@ -9,6 +12,7 @@ import icesi.VirtualStore.repository.OrderRepository;
 import icesi.VirtualStore.repository.UserRepository;
 import icesi.VirtualStore.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrder(UUID orderId) {
-        return orderRepository.findById(orderId).orElseThrow();
+        return orderRepository.findById(orderId).orElseThrow(()-> new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_O_01, VirtualStoreErrorCode.CODE_O_01.getMessage())));
     }
 
     @Override

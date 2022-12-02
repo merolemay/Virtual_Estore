@@ -17,7 +17,9 @@ public enum VirtualStoreErrorCode {
     CODE_06("An argument is invalid"),
 
     CODE_L_01("Login failed"),
-    CODE_L_02("The password is incorrect");
+    CODE_L_02("The password is incorrect"),
+    CODE_L_03("Unauthorized"),
+    CODE_L_04("Role");
 
     private final String message;
 }

@@ -37,7 +37,7 @@ public interface CustomAnnotations {
 
 
     @Documented
-    @Constraint(validatedBy = UsernameValidator.class)
+    @Constraint(validatedBy = PhoneNumberValidator.class)
     @Target({ ElementType.METHOD, ElementType.FIELD,ElementType.LOCAL_VARIABLE})
     @Retention(RetentionPolicy.RUNTIME)
     @interface ValidPhoneNumber {
@@ -52,7 +52,7 @@ public interface CustomAnnotations {
     }
 
     @Documented
-    @Constraint(validatedBy = UsernameValidator.class)
+    @Constraint(validatedBy = PasswordValidator.class)
     @Target({ ElementType.METHOD, ElementType.FIELD})
     @Retention(RetentionPolicy.RUNTIME)
     @interface ValidPassword {

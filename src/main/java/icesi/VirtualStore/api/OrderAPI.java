@@ -24,4 +24,7 @@ public interface OrderAPI {
 
     @PutMapping
     void updateOrder(@RequestBody OrderUpdateDTO orderUpdateDTO);
+
+    @DeleteMapping("/{orderId}")
+    void deleteOrder(@PathVariable UUID orderId);
 }

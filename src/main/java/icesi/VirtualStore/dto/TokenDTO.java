@@ -9,4 +9,8 @@ public class TokenDTO {
 
     private String token;
 
+    private String role;
+
+    private String userId;
+
 }
