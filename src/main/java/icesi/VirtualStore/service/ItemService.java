@@ -4,14 +4,18 @@ import icesi.VirtualStore.model.Item;
 import icesi.VirtualStore.model.ItemType;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ItemService {
 
-    Item getItem(String id);
+    ItemType getItem(UUID id);
 
-    List<Item> getAllItems();
+    List<ItemType> getAllItemTypes();
 
-    ItemType updateItem(ItemType itemType, String name);
+    boolean updateItem(ItemType itemType, UUID itemTypeId);
 
-    Item createItem(Item itemDTO);
+    ItemType createItem(ItemType itemDTO);
+
+    List<Item> addItemToStock(UUID itemTypeId, int quantity);
+
 }

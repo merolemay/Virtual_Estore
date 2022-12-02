@@ -5,8 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ItemDTO {
+public class ItemTypeDTO {
 
+    private String itemId;
     @NotNull
     private String name;
     @NotNull

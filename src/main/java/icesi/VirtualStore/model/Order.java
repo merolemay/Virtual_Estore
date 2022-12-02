@@ -2,6 +2,7 @@ package icesi.VirtualStore.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Table(name = "order")
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
@@ -38,5 +40,10 @@ public class Order {
            }
         }
         return total;
+    }
+
+    @PrePersist
+    public void generateId() {
+        this.orderId = UUID.randomUUID();
     }
 }
