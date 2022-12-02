@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Order order, UUID userId, List<OrderItemDTO> items) {
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(()-> new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_O_01, VirtualStoreErrorCode.CODE_O_01.getMessage())));
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
             List<Item> list = itemRepository.findByAvailableAndItemType_ItemTypeId(true, item.getItemId());
 
             if(list.size() < item.getQuantity()){
-                throw new RuntimeException("Not enough items in stock");
+                throw new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_I_02, VirtualStoreErrorCode.CODE_I_02.getMessage()))
             }
 
             list = list.stream().limit(item.getQuantity()).collect(Collectors.toList());

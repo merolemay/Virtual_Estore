@@ -56,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> claims = new HashMap<>();
         claims.put("userId", user.getUserId().toString());
         claims.put("roleId", user.getRole().getRoleId().toString());
-        return new TokenDTO(JWTParser.createJWT(user.getUserId().toString(), user.getEmail(), user.getEmail(), claims, 10000000L), user.getRole().getName(), user.getUserId().toString());
+        return new TokenDTO(JWTParser.createJWT(user.getUserId().toString(), user.getEmail(), user.getEmail(), claims, 1000L*60*20), user.getRole().getName(), user.getUserId().toString());
     }
 
     private void validatePassword(String userPassword, String loginDTOPassword) {

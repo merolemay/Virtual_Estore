@@ -19,7 +19,8 @@ public enum VirtualStoreErrorCode {
     CODE_L_01("Login failed"),
     CODE_L_02("The password is incorrect"),
     CODE_L_03("Unauthorized"),
-    CODE_L_04("Role");
+    CODE_L_04("Role"),
+    CODE_I_02("Not enough items available");
 
     private final String message;
 }
